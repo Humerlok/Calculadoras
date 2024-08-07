@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    
+    <Style>
+    
+    body {
+        background:#eceff1;
+    }
+    .wrapper {
+        width: 400px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #0288d1;
+        padding: 50px;
+        color: #fff;
+        text-align: center;
+        box-shadow: 3px 3px 10px gray;
+    }
+    .wrapper h1 {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 23pt;
+    }
+    .wrapper h2 {
+        text-transform: uppercase;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 18pt;
+        margin-bottom: 10%;
+    }
+    .wrapper h3 {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 14pt;
+    }
+    input[type="text"] {
+        height: 40px;
+    
+    }
+    input[type="text"] {
+        font-size: 24px;
+    }
+    button {
+        background: white;
+        border: none;
+        color: #0288d1;
+        display: inline-block;
+        padding: 10px 25px;
+        font-size: 18px;
+        text-transform: uppercase;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        letter-spacing: 2px;
+        font-weight: bold;
+        box-shadow: 2px 2px 2px black;
+    }
+    input[type="radio"] {
+        width: 20px;
+        height: 20px;
+    }
+    b {
+        font-size: 30px;
+    }
+    </Style>
+
+</head>
+<body>
+    <div class="wrapper">
+		<h2>Harmonic Notch Filther Reference Calculator</h2>
+        <h3>Valor do MOT_TRUST_HOVER</h3> <input id="mot-hover" name="num-one" type="number"> <br>
+        <h3>Valor da Frequência</h3> <input id="min-freq" name="num-one" type="number"> <br>
+        <h3>Valor da Frequência Mínima</h3> <input id="freq" name="num-two" type="number"> <br>
+		<br>
+		<br>
+		<button onclick="outcome()" type="button">calculate</button>
+		<h1 id="resultArea"></h1>
+	</div>
+	<script>
+        function outcome(){
+            let motHover = Number(document.getElementById('mot-hover').value)
+            let minFreq = Number(document.getElementById('min-freq').value)
+            let freq = Number(document.getElementById('freq').value)
+            let referenceResult = Math.pow(((minFreq-10) / freq),2) * motHover
+            document.getElementById('resultArea').innerHTML = 'Result: ' + String(referenceResult)
+        }
+	</script> 
+
+</body>
+</html>
