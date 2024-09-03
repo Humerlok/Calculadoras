@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    
+    <Style>
+    
+    body {
+        background:#dee1e4;
+    }
+    .wrapper {
+        width: 400px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #2c69b8;
+        padding: 40px;
+        color: #ffff;
+        text-align: center;
+        box-shadow: 3px 3px 10px gray;]
+    }
+    .wrapper h1 {
+        font-family: sans-serif;
+        font-size: 23pt;
+        margin-top: 20px;
+    }
+    .wrapper h2 {
+        text-transform: uppercase;
+        font-family: sans-serif;
+        font-size: 18pt;
+        margin: auto;
+    }
+    .wrapper h3 {
+        font-family: sans-serif;
+        font-size: 14pt;
+        margin: auto;
+    }
+    .wrapper h4 {
+        font-family: serif;
+        font-size: 11pt;
+        margin: auto;
+    }
+    input[type="text"] {
+        height: 40px;
+    
+    }
+    input[type="text"] {
+        font-size: 24px;
+    }
+    button {
+        background: white;
+        border: none;
+        color: #2871df;
+        display: inline-block;
+        padding: 10px 25px;
+        font-size: 18px;
+        text-transform: uppercase;
+        font-family: sans-serif;
+        letter-spacing: 2px;
+        font-weight: bold;
+        box-shadow: 2px 2px 2px black;
+    }
+    input[type="radio"] {
+        width: 20px;
+        height: 20px;
+    }
+    b {
+        font-size: 30px;
+    }
+    </Style>
+
+</head>
+<body>
+    <div class="wrapper">
+		<h1>Calculadora de Distância de Voo</h1>
+        <br>
+
+        <h3>Velocidade de Cruzeiro</h3> <input id="velocidade" name="num-one" type="number"> <h4>km/h</h4>  <br>
+
+        <h3>Tempo de Voo</h3> <input id="tempo" name="num-one" type="number"> <h4>minutos</h4> <br>
+		<br>
+		<button onclick="outcome()" type="button">calculate</button>
+        <br>
+		<h1 id="resultArea"></h1>
+	</div>
+	<script>
+        function outcome(){
+            let velocidade = Number(document.getElementById('velocidade').value)
+            let tempo = Number(document.getElementById('tempo').value)
+
+            let distancia = velocidade * tempo / 60
+
+            console.log(distancia)
+            document.getElementById('resultArea').innerHTML = 'Distância: ' + String(distancia.toFixed(1)) + ' km'
+        }
+	</script> 
+
+</body>
+</html>

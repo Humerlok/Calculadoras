@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wind estimation</title>
+    <style>
+
+        body {
+            background:#dee1e4;
+        }
+
+        .quadrado {
+            width: 400px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #2c69b8;
+            padding: 40px;
+            color: #ffff;
+            text-align: center;
+            box-shadow: 3px 3px 10px gray;]
+        }
+
+        .quadrado h1 {
+            font-family: sans-serif;
+            font-size: 23pt;
+            margin-top: 20px;
+        }
+        .quadrado h2 {
+
+            font-family: sans-serif;
+            font-size: 14pt;
+            margin-top: 20px;
+            margin-bottom: 6px;
+        }
+        .quadrado h3 {
+            font-family: sans-serif;
+            font-size: 11pt;
+            margin: auto;
+        }
+
+        input[type="text"] {
+            height: 40px;
+
+        }
+
+        input[type="text"] {
+            font-size: 24px;
+        }
+
+        button {
+            background: white;
+            border: none;
+            color: #2871df;
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 18px;
+            text-transform: uppercase;
+            font-family: sans-serif;
+            letter-spacing: 2px;
+            font-weight: bold;
+            box-shadow: 2px 2px 2px black;
+            margin-top: 20px;
+        }
+
+        input[type="radio"] {
+            width: 20px;
+            height: 20px;
+        }
+        p{
+            font-size: small;
+            text-align: center;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="quadrado">
+		<h1>Windspeed Estimation and Baro Compensation</h1>
+
+        <h2>Área (m²)</h2> <input id="area" name="num-one" type="number">
+        <br>
+        <h2>Massa (Kg)</h2> <input id="massa" name="num-two" type="number">
+        <br>
+        <h2>Densidade do Ar (kg/m³)</h2> <input id="densidade" name="num-tree" type="number">
+        <br>
+        <h2>Velocidade (m/s)</h2> <input id="velocidade" name="num-four" type="number">
+        <br>
+        <h2>Aceleração (m/s²)</h2> <input id="aceleracao" name="num-five" type="number">
+        <br>
+
+		<button onclick="calcular()" type="button">calcular</button>
+        <br>
+		<h1 id="resultado"></h1>
+	</div>
+
+    <p>Siga as instruções do link e utilize essa calculadora para ajudar a encontrar os valores de EK3_DRAG_BCOEF_X, EK3_DRAG_BCOEF_Y e EK3_DRAG_MCOEF <br>
+        <a href= 'https://ardupilot.org/copter/docs/airspeed-estimation.html' target= "_blank" > Windspeed Estimation and Baro Compensation </a> <link> <br>
+    </p>
+    <br>
+    
+
+    <script>
+        
+        function calcular() {
+
+        let area = Number(document.getElementById('area').value)              // calcular com a foto
+        let massa = Number(document.getElementById('massa').value)
+
+        let bCoef = massa / area
+
+        let arDensidade = Number(document.getElementById('densidade').value)
+        let velocidade = Number(document.getElementById('velocidade').value)        //no log velocidade pico + a velocidade do ar
+        let acele= Number(document.getElementById('aceleracao').value)
+
+        let result1 = (velocidade) ** 2
+        let result2 = (0.5 * arDensidade * result1) / bCoef
+        let result3 = acele - result2
+
+        let mCoef = result3 / velocidade
+
+        document.getElementById('resultado').innerHTML = 'EK3_DRAG_BCOEF: ' + bCoef.toFixed(2) + ' EK3_DRAG_MCOEF: ' + mCoef.toFixed(2)
+
+        }
+    </script>
+
+</body>
