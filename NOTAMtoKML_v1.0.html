@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Conversor Coordenadas para KML</title>
+    <style>
+
+        body {
+            background:#dee1e4;
+        }
+
+        .quadrado {
+            width: 600px;
+            position:absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #479CDF;
+            padding: 40px;
+            color: #ffff;
+            text-align: center;
+            box-shadow: 3px 3px 10px gray;]
+        }
+
+        .quadrado h1 {
+            font-family: sans-serif;
+            font-size: 23pt;
+            margin-top: 20px;
+        }
+        .quadrado h2 {
+
+            font-family: sans-serif;
+            font-size: 14pt;
+            margin-top: 20px;
+            margin-bottom: 6px;
+        }
+        .quadrado h3 {
+            font-family: sans-serif;
+            font-size: 11pt;
+            margin: auto;
+        }
+
+        .quadrado textarea{
+            width: 560x;
+
+        }
+            
+        }
+
+        input[type="text"] {
+            height: 40px;
+
+        }
+
+        input[type="text"] {
+            font-size: 24px;
+        }
+
+        button {
+            background: white;
+            border: none;
+            color: #02AC9B;
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 18px;
+            text-transform: uppercase;
+            font-family: sans-serif;
+            letter-spacing: 2px;
+            font-weight: bold;
+            box-shadow: 2px 2px 2px black;
+            margin-top: 20px;
+        }
+        a{
+            font-size: x-large;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: whitesmoke;
+            padding: 10px 20px;
+        }
+        p{
+            font-size: small;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="quadrado">
+
+        <h1>Conversor de Coordenadas para Polígono KML</h1>
+
+        <textarea id="coordinates" rows="10" cols="50" placeholder="Insira as coordenadas aqui, separadas por vírgula. Exemplo: 225648.32S/0470529.14W, 225702.33S/0470455.95W"></textarea>
+        <br>
+        <button onclick="convertToKML()">Converter para KML</button>
+        <br>
+        <h2><a id="downloadLink" style="display:none;">Baixar KML</a></h2>
+
+    </div>
+
+    <script>
+
+        function convertToKML() {
+            const input = document.getElementById('coordinates').value.trim().split(',');
+            let coordinates = [];
+
+            input.forEach(coord => {
+                const parts = coord.trim().split('/');
+                const latDMS = parts[0];
+                const lonDMS = parts[1];
+
+                const latDeg = parseFloat(latDMS.slice(0, 2));
+                const latMin = parseFloat(latDMS.slice(2, 4));
+                const latSec = parseFloat(latDMS.slice(4));
+                const lonDeg = parseFloat(lonDMS.slice(0, 3));
+                const lonMin = parseFloat(lonDMS.slice(3, 5));
+                const lonSec = parseFloat(lonDMS.slice(5));
+                const latSign = latDMS.includes('S') ? -1 : 1;
+                const lonSign = lonDMS.includes('W') ? -1 : 1;
+
+                const lat = latSign * (latDeg + latMin / 60 + latSec / 3600);
+                const lon = lonSign * (lonDeg + lonMin / 60 + lonSec / 3600);
+
+                coordinates.push([lon, lat]);
+            });
+
+            // Fechar o polígono conectando o último ponto ao primeiro
+            if (coordinates.length > 0) {
+                coordinates.push(coordinates[0]);
+            }
+
+            let kml = `<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <Placemark>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>`;
+            
+            coordinates.forEach(coord => {
+                kml += `${coord[0]},${coord[1]},0 `;
+            });
+
+            kml += `</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+  </Document>
+</kml>`;
+
+            const blob = new Blob([kml], { type: 'application/vnd.google-earth.kml+xml' });
+            const url = URL.createObjectURL(blob);
+            const link = document.getElementById('downloadLink');
+            link.href = url;
+            link.download = 'polygon.kml';
+            link.style.display = 'block';
+            link.innerText = 'Baixar KML';
+        }
+    
+    </script>
+</body>
+</html>
