@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wind estimation</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+    <div class="quadrado">
+		<h1>Windspeed Estimation and Baro Compensation</h1>
+
+        <h2>Área (m²)</h2> <input id="area" name="num-one" type="number">
+        <br>
+        <h2>Massa (Kg)</h2> <input id="massa" name="num-two" type="number">
+        <br>
+        <h2>Densidade do Ar (kg/m³)</h2> <input id="densidade" name="num-tree" type="number">
+        <br>
+        <h2>Velocidade (m/s)</h2> <input id="velocidade" name="num-four" type="number">
+        <br>
+        <h2>Aceleração (m/s²)</h2> <input id="aceleracao" name="num-five" type="number">
+        <br>
+
+		<button onclick="calcular()" type="button">calcular</button>
+        <br>
+		<h1 id="resultado"></h1>
+	</div>
+
+    <p>Siga as instruções do link e utilize essa calculadora para ajudar a encontrar os valores de EK3_DRAG_BCOEF_X, EK3_DRAG_BCOEF_Y e EK3_DRAG_MCOEF <br>
+        <a href= 'https://ardupilot.org/copter/docs/airspeed-estimation.html' target= "_blank" > Windspeed Estimation and Baro Compensation </a> <link> <br>
+    </p>
+    <br>
+    
+
+    <script src="Conta.js"></script>
+
+</body>
