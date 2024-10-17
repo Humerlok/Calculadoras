@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airspeed Ratio</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    
+    <script src="calculo.js"></script>
+
+    <div class="wrapper">
+		<h1>Calculating a New Airspeed Ratio</h1>
+
+        <h2>Old ratio</h2> <input id="oldRatio" name="num-one" type="number">
+        <br>
+        <h2>Average airspeed</h2> <input id="average" name="num-two" type="number">
+        <br>
+        <h2>Airspeed increase</h2> <input id="increase" name="num-tree" type="number">
+        <br>
+
+		<button onclick="calcular()" type="button">calcular</button>
+        <br>
+		<h1 id="resultArea"></h1>
+	</div>
+
+    <a href= 'https://ardupilot.org/plane/docs/calibrating-an-airspeed-sensor.html#calibrating-an-airspeed-sensor' target= "_blank" > Calibrating an Airspeed Sensor </a> <link>
+
+</body>
+</html>
